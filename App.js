@@ -9,6 +9,7 @@ import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
+import LogoTitle from "./components/LogoTitle";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -47,11 +48,11 @@ export default function App() {
       {isLoading ? null : userToken === null ? ( // We haven't finished checking for the token yet
         // No token found, user isn't signed in
         <Stack.Navigator>
-          <Stack.Screen name="SignIn">
-            {() => <SignInScreen setToken={setToken} />}
+          <Stack.Screen name="SignIn" options={{ headerShown: false }}>
+            {(props) => <SignInScreen {...props} setToken={setToken} />}
           </Stack.Screen>
-          <Stack.Screen name="SignUp">
-            {() => <SignUpScreen setToken={setToken} />}
+          <Stack.Screen name="SignUp" options={{ headerShown: false }}>
+            {(props) => <SignUpScreen {...props} setToken={setToken} />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
@@ -79,9 +80,18 @@ export default function App() {
                       <Stack.Screen
                         name="Home"
                         options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
+                          headerTitle: () => {
+                            return <LogoTitle />;
+                          },
+                        }}
+                      >
+                        {() => <HomeScreen />}
+                      </Stack.Screen>
+
+                      <Stack.Screen
+                        name="Room"
+                        options={{
+                          headerShown: true,
                         }}
                       >
                         {() => <HomeScreen />}
