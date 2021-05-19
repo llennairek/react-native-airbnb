@@ -84,6 +84,7 @@ export default function App() {
                           headerTitle: () => {
                             return <LogoTitle />;
                           },
+                          headerTitleAlign: "center",
                         }}
                       >
                         {() => <HomeScreen />}
@@ -95,6 +96,7 @@ export default function App() {
                           headerTitle: () => {
                             return <LogoTitle />;
                           },
+                          headerTitleAlign: "center",
                         }}
                       >
                         {(props) => <Room {...props} />}

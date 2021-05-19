@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  ImageBackground,
-  View,
-  Image,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 
@@ -27,7 +20,6 @@ const ImagePrice = ({ data }) => {
       />
       <Text style={styles.absolute}>{data.price} €</Text>
     </View>
-    // </ImageBackground>
   );
 };
 

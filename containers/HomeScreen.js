@@ -41,10 +41,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.logoWrapper}>
-        <Image source={require("../assets/logo-big.png")} style={styles.logo} />
-      </View> */}
-
       {isLoading ? (
         <ActivityIndicator
           size="large"
@@ -60,12 +56,6 @@ export default function HomeScreen() {
           />
         </View>
       )}
-      {/* <Button
-        title="Go to Profile"
-        onPress={() => {
-          navigation.navigate("Profile", { userId: 123 });
-        }}
-      /> */}
     </View>
   );
 }
