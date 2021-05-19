@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import {
   Button,
   Text,
@@ -23,9 +22,6 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  const tabBarHeight = useBottomTabBarHeight();
-  console.log(tabBarHeight);
 
   useEffect(() => {
     const fetchData = async () => {

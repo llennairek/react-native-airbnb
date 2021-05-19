@@ -10,6 +10,7 @@ import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import LogoTitle from "./components/LogoTitle";
+import Room from "./containers/Room";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -91,10 +92,12 @@ export default function App() {
                       <Stack.Screen
                         name="Room"
                         options={{
-                          headerShown: true,
+                          headerTitle: () => {
+                            return <LogoTitle />;
+                          },
                         }}
                       >
-                        {() => <HomeScreen />}
+                        {(props) => <Room {...props} />}
                       </Stack.Screen>
 
                       <Stack.Screen
