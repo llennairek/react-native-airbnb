@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
@@ -19,12 +19,15 @@ const Stack = createStackNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const setToken = async (token) => {
+  const setToken = async (token, userId) => {
     if (token) {
       AsyncStorage.setItem("userToken", token);
+      AsyncStorage.setItem("userId", userId);
     } else {
       AsyncStorage.removeItem("userToken");
+      AsyncStorage.removeItem("userId");
     }
 
     setUserToken(token);
@@ -35,11 +38,12 @@ export default function App() {
     const bootstrapAsync = async () => {
       // We should also handle error for production apps
       const userToken = await AsyncStorage.getItem("userToken");
-
+      const user = await AsyncStorage.getItem("userId");
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setIsLoading(false);
       setUserToken(userToken);
+      setUserId(user);
     };
 
     bootstrapAsync();
@@ -51,10 +55,22 @@ export default function App() {
         // No token found, user isn't signed in
         <Stack.Navigator>
           <Stack.Screen name="SignIn" options={{ headerShown: false }}>
-            {(props) => <SignInScreen {...props} setToken={setToken} />}
+            {(props) => (
+              <SignInScreen
+                {...props}
+                setToken={setToken}
+                setUserId={setUserId}
+              />
+            )}
           </Stack.Screen>
           <Stack.Screen name="SignUp" options={{ headerShown: false }}>
-            {(props) => <SignUpScreen {...props} setToken={setToken} />}
+            {(props) => (
+              <SignUpScreen
+                {...props}
+                setToken={setToken}
+                setUserId={setUserId}
+              />
+            )}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
@@ -147,25 +163,32 @@ export default function App() {
                 </Tab.Screen>
 
                 <Tab.Screen
-                  name="Settings"
+                  name="MyProfile"
                   options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "My Profile",
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={"ios-options"}
-                        size={size}
-                        color={color}
-                      />
+                      <AntDesign name="user" size={size} color={color} />
                     ),
                   }}
                 >
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Settings"
-                        options={{ title: "Settings", tabBarLabel: "Settings" }}
+                        name="MyProfile"
+                        options={{
+                          headerTitle: () => {
+                            return <LogoTitle />;
+                          },
+                          headerTitleAlign: "center",
+                        }}
                       >
-                        {() => <SettingsScreen setToken={setToken} />}
+                        {() => (
+                          <ProfileScreen
+                            userToken={userToken}
+                            setToken={setToken}
+                            userId={userId}
+                          />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}

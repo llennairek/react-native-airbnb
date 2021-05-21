@@ -23,13 +23,10 @@ const AroundMeScreen = () => {
   const fetchdata = async ({ latitude, longitude }) => {
     try {
       if (latitude && longitude) {
-        console.log(
-          `https://express-airbnb-api.herokuapp.com/rooms/around?longitude=${longitude}&latitude=${latitude}`
-        );
         const response = await axios.get(
           `https://express-airbnb-api.herokuapp.com/rooms/around?longitude=${longitude}&latitude=${latitude}`
         );
-        console.log(response.data);
+
         setData(response.data);
       } else {
         const response = await axios.get(

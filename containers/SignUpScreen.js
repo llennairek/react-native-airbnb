@@ -15,7 +15,7 @@ import Constants from "expo-constants";
 import { useState } from "react";
 import axios from "axios";
 
-export default function SignUpScreen({ navigation, setToken }) {
+export default function SignUpScreen({ navigation, setToken, setUserId }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -52,8 +52,8 @@ export default function SignUpScreen({ navigation, setToken }) {
             requestObject
           );
           if (response.status === 200) {
-            setToken(response.data.token);
-
+            setToken(response.data.token, response.data.id);
+            setUserId(response.data.id);
             setIsLoading(false);
           }
         } catch (error) {
