@@ -2,19 +2,18 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Image } from "react-native";
 
+//ICONS
 import { AntDesign } from "@expo/vector-icons";
+
+//MAPS
+import MapView, { Callout } from "react-native-maps";
 
 // COMPONENTS
 import ImagePrice from "../components/ImagePrice";
 import TitleRating from "../components/TitleRating";
+import ImageBackground from "react-native/Libraries/Image/ImageBackground";
 
 const Room = ({ route }) => {
   const [data, setData] = useState({});
@@ -67,6 +66,34 @@ const Room = ({ route }) => {
           )}
         </Text>
       </View>
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
+          latitude: 48.856614,
+          longitude: 2.3522219,
+        }}
+      >
+        <MapView.Marker
+          coordinate={{
+            latitude: data.location[1],
+            longitude: data.location[0],
+          }}
+          title={data.title}
+          description={data.description}
+        >
+          {/* <Callout>
+            <Text style={{ width: 100, height: 100 }}>
+              <Image
+                source={{ uri: data.photos[0].url }}
+                style={{ width: 100, height: 100 }}
+                resizeMode="contain"
+              />
+            </Text>
+          </Callout> */}
+        </MapView.Marker>
+      </MapView>
     </View>
   );
 };
@@ -74,6 +101,7 @@ const Room = ({ route }) => {
 export default Room;
 
 const styles = StyleSheet.create({
+  container: { backgroundColor: "#fff", flex: 1 },
   infos: { paddingHorizontal: 20 },
   moreLess: { color: "#888", fontSize: 12, paddingVertical: 8 },
 });

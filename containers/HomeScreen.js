@@ -1,15 +1,5 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/core";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 
 import Constants from "expo-constants";
 import { useEffect } from "react";
@@ -19,7 +9,6 @@ import { useState } from "react";
 import Card from "../components/Card";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -71,14 +60,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 5,
   },
-  // logo: { height: 40, width: 40, alignSelf: "center" },
   flatListContainer: {},
   card: {
     width: "100%",
-    // borderColor: "red",
-    // borderWidth: 5,
-    // height: 200,
-    // marginBottom: 150,
   },
   text: {
     color: "red",

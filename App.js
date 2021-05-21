@@ -3,14 +3,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import LogoTitle from "./components/LogoTitle";
-import Room from "./containers/Room";
+import RoomScreen from "./containers/RoomScreen";
+import AroundMeScreen from "./containers/AroundMeScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -69,6 +70,7 @@ export default function App() {
               >
                 <Tab.Screen
                   name="Home"
+                  tabBarOptions={{ activeTintColor: "#F06B73" }}
                   options={{
                     tabBarLabel: "Home",
                     tabBarIcon: ({ color, size }) => (
@@ -99,7 +101,7 @@ export default function App() {
                           headerTitleAlign: "center",
                         }}
                       >
-                        {(props) => <Room {...props} />}
+                        {(props) => <RoomScreen {...props} />}
                       </Stack.Screen>
 
                       <Stack.Screen
@@ -113,6 +115,37 @@ export default function App() {
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
+
+                <Tab.Screen
+                  name="AroundMe"
+                  tabBarOptions={{ activeTintColor: "#F06B73" }}
+                  options={{
+                    tabBarLabel: "AroundMe",
+                    tabBarIcon: ({ color, size }) => (
+                      <FontAwesome5
+                        name="map-marker-alt"
+                        size={size}
+                        color={color}
+                      />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="AroundMe"
+                        options={{
+                          headerTitle: () => {
+                            return <LogoTitle />;
+                          },
+                          headerTitleAlign: "center",
+                        }}
+                        component={AroundMeScreen}
+                      />
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+
                 <Tab.Screen
                   name="Settings"
                   options={{
