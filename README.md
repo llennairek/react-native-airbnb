@@ -32,13 +32,13 @@ Following screenshots : sigIn page, signUp page, Home page, individual offer pag
 
 
 ## 📦 Packages
-react-navigation 
-axios  
-expo-constants
-expo-image-picker
-expo-location
-expo-status-bar
-react-native-swiper-flatlist
+react-navigation  
+axios   
+expo-constants  
+expo-image-picker  
+expo-location  
+expo-status-bar  
+react-native-swiper-flatlist  
 
 ## 💻 Installation and usage
 
